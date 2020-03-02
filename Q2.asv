@@ -11,19 +11,25 @@ N = 150;
 v = 2;
 
 tMax = 1000;
-dt = 2e-2;
+dt = 1e-2;
 t = 0:dt:tMax;
-initialVal = 0.01;
 
-hold on
+L = zeros(1,length(t));
+L(1) = 0.01;
 
-[X,Y] = solveRK4(@dL,[0,tMax],dt,initialVal);
-plot(X,Y)
+i = 1;
+while i < length(t)
+    
+    L(i+1) = L(i) + dt*dL(0,L(i));
+    i = i + 1;
+    
+end
 
-[W,Z] = ode45(@dL,[0,tMax],initialVal);
-plot(W,Z)
+plot(t,L)
 
-hold off
+[]
+figure()
+
 
 qA = (d.* v);
 qB = (2 .* a .* D .* N .* v + 2 .* d .* D);
