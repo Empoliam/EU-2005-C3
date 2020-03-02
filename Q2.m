@@ -10,15 +10,14 @@ k = 1/60;
 N = 150;
 v = 2;
 
-tMax = 1000;
+tMax = 10000;
 dt = 2e-2;
-t = 0:dt:tMax;
+
 initialVal = 0.01;
 
 hold on
-
-[X,Y] = solveRK4(@dL,[0,tMax],dt,initialVal);
-plot(X,Y)
+[t,L] = solveRK4(@dL,[0,tMax],dt,initialVal);
+plot(t,L)
 
 [W,Z] = ode45(@dL,[0,tMax],initialVal);
 plot(W,Z)
