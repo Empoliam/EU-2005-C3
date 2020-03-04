@@ -16,17 +16,17 @@ dt = 2e-2;
 initialVal = 0.01;
 
 hold on
-[t,L] = solveRK4(@dL,[0,tMax],dt,initialVal);
-plot(t,L)
+% [t,L] = solveRK4(@dL,[0,tMax],dt,initialVal);
+% plot(t,L)
 
 [W,Z] = ode45(@dL,[0,tMax],initialVal);
 plot(W,Z)
 
 hold off
 
-qA = (d.* v);
-qB = (2 .* a .* D .* N .* v + 2 .* d .* D);
-qC = -2.*a.*D.*N.*v.*T;
+qA = (d.* v .* k);
+qB = (2 .* D.*d.*k + 2.*D.*k.*N.*v.*a);
+qC = ((2.*d.*D.*v) - (2.*D.*k.*N.*v.*a.*T));
 
 steadyState = (-qB + sqrt(qB.^2 - 4.*qA.*qC))/(2.*qA);
 disp(steadyState)
@@ -35,7 +35,8 @@ function [out] = dL(~,l)
 
 global a T d D k N v;
 
-J = (k .* N) ./ ( ( l .* k ./ v ) + ( (l.^2 .* k) ./ (2 .* D) ) );
+%J = (k .* N) ./ ( ( l .* k ./ v ) + ( (l.^2 .* k) ./ (2 .* D) ) );
+J = (2.*D.*k.*N.*v)./((2.*D.*(k.*l+v))+ (k.*l.^2.*v));
 out = a .* J .* (T - l) - d;
 
 end
