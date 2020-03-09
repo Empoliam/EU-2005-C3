@@ -1,5 +1,6 @@
 clear();
 
+
 a = 2e-4;
 T = 30;
 d = 0.3/60;
@@ -23,9 +24,10 @@ qB = (2 .* D.*d.*k + 2.*D.*k.*N.*v.*a);
 qC = ((2.*d.*D.*v) - (2.*D.*k.*N.*v.*a.*T));
 
 steadyState = (-qB + sqrt(qB.^2 - 4.*qA.*qC))./(2.*qA);
-
 imagesc(vRange,DRange,steadyState)
 colorbar
+xlabel("v")
+ylabel("D")
 set(gca,'YDir','normal')
 
 min(min(steadyState))
