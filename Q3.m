@@ -26,6 +26,8 @@ qC = ((2.*d.*D.*v) - (2.*D.*k.*N.*v.*a.*T));
 steadyState = (-qB + sqrt(qB.^2 - 4.*qA.*qC))./(2.*qA);
 imagesc(vRange,DRange,steadyState)
 colorbar
+colormap gray;
+title("Phase Diagram for Steady State Flagellum Lengths")
 xlabel("v")
 ylabel("D")
 set(gca,'YDir','normal')
