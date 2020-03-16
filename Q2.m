@@ -35,8 +35,8 @@ function [out] = dL(~,l)
 
 global a T d D k N v;
 
-%J = (k .* N) ./ ( ( l .* k ./ v ) + ( (l.^2 .* k) ./ (2 .* D) ) );
-J = (2.*D.*k.*N.*v)./((2.*D.*(k.*l+v))+ (k.*l.^2.*v));
+J = (k .* N) ./ ( 1 + (k .* l)./v + (k .* l.^2)./(2 .* D) );
+
 out = a .* J .* (T - l) - d;
 
 end
