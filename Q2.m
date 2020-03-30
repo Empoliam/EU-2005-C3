@@ -22,7 +22,11 @@ initialVal = 0;
 % v = v/2;
 % [W,Z] = ode45(@dL,[tMax,2.*tMax],Y(end));
 % plot([X;W],[Y;Z]);
-plot(X,Y)
+plot(X,Y,"k")
+xticklabels(round(get(gca,'xtick')./60,0))
+xlabel("Time (mins)")
+ylabel("Flagellum Length (um)")
+
 
 qA = (d.* v .* k);
 qB = (2 .* D.*d.*k + 2.*D.*k.*N.*v.*a);
