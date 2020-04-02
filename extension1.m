@@ -1,5 +1,6 @@
 clear();
 
+%Constants
 global a T d D k N v;
 
 a = 2e-4;
@@ -10,16 +11,16 @@ k = 1/60;
 N = 150;
 v = 2;
 
+%Set up timestep
 tMax = 10000;
 dt = 2e-2;
 t = 0:2e-2:tMax;
 
+%Initialise length arrays
 Li = zeros(1,length(t));
 Lii = zeros(1,length(t));
 
-Li(1) = 0;
-Lii(1) = 0;
-
+%Forward euler solve
 iter = 1;
 while iter < length(t)/2
    
@@ -30,8 +31,10 @@ while iter < length(t)/2
     
 end
 
+%Sever flaegellum
 Li(iter) = 0;
 
+%Continue solving
 while iter < length(t)
    
     Li(iter+1) = Li(iter) + dt.*dLi(Li(iter),Lii(iter));
@@ -41,6 +44,7 @@ while iter < length(t)
     
 end
 
+%Plot
 subplot(2,2,1)
 plot(t,Li,"k")
 xticklabels(round(get(gca,'xtick')./60,0))
@@ -54,6 +58,7 @@ xlabel("Time (mins)")
 ylabel("Flagellum Length (um)")
 title("ODE: Flagellum B")
 
+%ODE for flagellum A
 function [out] = dLi(li,lii)
 
 global a T d D k N v;
@@ -64,6 +69,7 @@ out = a .* J .* (T - li) - d;
 
 end
 
+%ODE for flagellum B
 function [out] = dLii(li,lii)
 
 global a T d D k N v;
